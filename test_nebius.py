@@ -18,9 +18,10 @@ client = OpenAI(
 try:
     models = client.models.list()
     print("Connection successful!")
-    print("Models available to this key:", len(models.data))
-    print("Check completed without displaying your API key.")
+    print("\nAvailable model IDs:")
+
+    for model in models.data:
+        print(model.id)
+
 except Exception as error:
     print("Connection check failed:", type(error).__name__)
-    print("Check your key, account access, and network connection.")
-    
