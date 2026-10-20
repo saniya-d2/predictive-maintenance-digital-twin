@@ -4,6 +4,7 @@ import plotly.express as px
 
 from simulator import MACHINES, simulate_factory
 from health_monitor import assess_machine
+from ai_analyzer import analyze_machine
 
 st.set_page_config(
     page_title="Factory Digital Twin",
@@ -36,6 +37,14 @@ if st.button("▶ Run Next Factory Cycle"):
 
 readings = st.session_state.current_readings
 reports = [assess_machine(r) for r in readings]
+st.divider()
+st.subheader("🤖 AI Maintenance Assistant")
+
+enable_ai = st.toggle(
+    "Enable AI maintenance explanations",
+    value=False,
+    help="Uses the Nebius-hosted NVIDIA model and may incur API charges.",
+)
 
 df = pd.DataFrame(readings)
 health_df = pd.DataFrame(reports)
