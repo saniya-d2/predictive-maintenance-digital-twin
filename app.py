@@ -92,6 +92,20 @@ for reading, report in zip(readings, reports):
 
             for warning in report["warnings"]:
                 st.caption(f"• {warning}")
+                
+            if enable_ai and report["status"] != "NORMAL":
+                st.markdown("**🤖 AI Maintenance Explanation**")
+
+                with st.spinner("Analyzing machine warning..."):
+                    explanation = analyze_machine(
+                        machine_name=reading["machine"],
+                        readings=reading,
+                        risk_score=report["risk_score"],
+                        status=report["status"],
+                    )
+
+                st.write(explanation)
+
 
 st.divider()
 st.subheader("Sensor Comparison")
